@@ -1,0 +1,12 @@
+{
+  "name": "devops-demo-app",
+  "version": "1.0.0",
+  "description": "SLIIT DevOps Intern Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
