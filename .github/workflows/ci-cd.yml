@@ -31,7 +31,7 @@ jobs:
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.PRADEEPLAKSHAN }} # GitHub Secrets වල සේව් කරන්න
-        password: ${{ secrets.PLAKSHAN2003@ }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} # GitHub Secrets වල සේව් කරන්න
 
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v4
