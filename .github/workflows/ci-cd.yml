@@ -1,1 +1,39 @@
+#this is a brain of all are doing auto 
+# when code push to main branch this workflow will run and build docker image and push to docker hub and deploy to kubernetes cluster
 
+name: DevOps Core CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ] # main branch එකට push වෙද්දී විතරක් run වෙනවා
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install and Test
+      run: |
+        npm install
+        # npm test (If you have tests)
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }} # GitHub Secrets වල සේව් කරන්න
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: your-dockerhub-username/devops-demo-app:v1

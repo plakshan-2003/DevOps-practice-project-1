@@ -1,1 +1,37 @@
 
+# this code use for auto scaling the pod based on CPU and memory usage
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-app-deployment
+  labels:
+    app: devops-app
+spec:
+  replicas: 2 # High Availability (Best Practice) one pod is down but other pod can run app continously
+  selector:
+    matchLabels:
+      app: devops-app
+  template:
+    metadata:
+      labels:
+        app: devops-app
+    spec:
+      containers:
+      - name: node-app
+        image: your-dockerhub-username/devops-demo-app:v1 # Docker hub image
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always
+        resources: # Best Practice: Define resource limits
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+          requests:
+            cpu: "250m"
+            memory: "128Mi"
+        livenessProbe: # Health check rule, if app freeze container will restart
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 10
