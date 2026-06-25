@@ -35,7 +35,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v4
       with:
-        # 👇 context එකට තිත (.) වෙනුවට folder නම දෙන්න
+        # context එකට තිත (.) වෙනුවට folder නම දෙන්න
         context: ./DevOps-practice-project-1
         push: true
         tags: pradeeplakshan/devops-demo-app:v1
